@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface Book {  
@@ -14,6 +14,7 @@ interface Book {
   standalone: true,
   imports: [FormsModule], // Pas besoin d'importer NgIf/NgFor avec la nouvelle syntaxe @if/@for
   templateUrl: './catalog.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './catalog.css'
 })
 

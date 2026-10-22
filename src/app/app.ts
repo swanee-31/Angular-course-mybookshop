@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.css'
 })
 export class App {
