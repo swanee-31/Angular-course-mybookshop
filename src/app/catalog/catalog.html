@@ -1,0 +1,59 @@
+<p>catalog works!</p>
+<select [(ngModel)]="filterStock">
+  <option value="all">Tout voir</option>
+  <option value="inStock">En stock (> 0)</option>
+  <option value="outOfStock">En rupture (0)</option>
+</select>
+
+<div class="book-container" style="display: flex; gap: 20px;">
+
+  <!-- BOUCLE @FOR -->
+  <!-- 'track' est obligatoire pour la performance (on utilise le titre comme clé unique ici) -->
+  @for (book of getFilteredBooks(); track book.title) {
+    
+    <div class="card" style="border: 1px solid #ccc; padding: 15px; width: 200px;">
+      
+      <!-- PROPERTY BINDING [src] -->
+      <img [src]="book.image" alt="Couverture" width="100" style="height: 150px; object-fit: cover;">
+      
+      <!-- INTERPOLATION {{ }} -->
+      <h3>{{ book.title }}</h3>
+      <p>Par {{ book.author }}</p>
+      <p>Prix : <strong>{{ book.price }} €</strong></p>
+
+      <!-- AFFICHAGE CONDITIONNEL @IF -->
+      @if (book.quantity > 0) {
+        <p style="color: green; font-weight: bold;">✅ En Stock</p>
+        <p>Quantité disponible : {{ book.quantity }}</p>
+      } @else {
+        <p style="color: red; font-weight: bold;">❌ Rupture de stock</p>
+      }
+
+      <button (click)="incrementeStock(book)" style="margin-bottom: 10px;">Ajouter du stock</button>
+
+      <!-- EVENT BINDING (click) + PROPERTY BINDING [disabled] -->
+      <!-- Si pas en stock (!book.inStock), le bouton est désactivé -->
+      <button 
+        (click)="buyBook(book)" 
+        [disabled]="book.quantity <= 0">
+        Acheter
+      </button>
+
+    </div>
+
+  }
+</div>
+<button (click)="videPanier()" style="margin-top: 20px;">Vider le panier</button>
+<div>
+
+</div>
+<div>Votre panier : <b>{{totalPrice}} € </b> </div> 
+@if (panier.length === 0)   
+  { <p>Votre panier est vide.</p> } 
+    @else 
+    { <ul> @for (item of panier; 
+    track item.title) { <li>{{ item.title }} </li> } 
+    </ul> 
+    <p>Total : {{ panier.length }}</p> }
+
+
